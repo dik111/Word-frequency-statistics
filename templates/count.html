@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+
+#section {
+    width:500px;
+    float:left;
+    padding:10px;
+}
+#nav {
+    line-height:30px;
+
+    height:300px;
+    width:800px;
+    float:right;
+    padding:5px;
+}
+
+
+</style>
+</head>
+
+<body style="background-image:url(http://www.dabaoku.com/sucai/shejilei/bj/0027.gif);background-position:center; background-repeat:no-repeat;background-attachment:fixed;background-size: cover;">
+
+<div id="header">
+<h1>词频统计结果</h1>
+</div>
+<div id="section">
+<form method="post"  >
+    {{ form.csrf_token() }}
+    {% if start_day %}
+        {{ form.project.label }}{{ form.project(value=project_name) }}
+        {% else %}
+        {{ form.project.label }}{{ form.project(value="袋熊，随行付") }}
+    {% endif %}(多项目请以中文"，"隔开)<br>
+    {% if start_day %}
+        {{ form.startdate.label }}{{ form.startdate(value=start_day) }} <br>
+        {% else %}
+        {{ form.startdate.label }}{{ form.startdate(value=yesterday) }} <br>
+    {% endif %}
+
+    {% if end_day %}
+        {{ form.enddate.label }}{{ form.enddate(value=end_day) }} <br>
+        {% else %}
+        {{ form.enddate.label }}{{ form.enddate(value=yesterday) }} <br>
+    {% endif %}
+    {{ form.submit }}<br>
+
+</form>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+{% block body %}{% endblock %}
+    <form action="count" >
+        <textarea cols="100" rows="25" name="text"  placeholder="请在此输入你的文本..." >
+            {% for titles in title %}
+                {{ titles[0] }}
+            {% endfor %}
+
+        </textarea>
+        <br>
+        <input type="submit" value="统计">
+    </form>
+<a href=".." >返回首页</a><br>
+<a href="about" >关于本网站</a>
+</div>
+<div id="nav">
+<table border="3" align="center">
+{% autoescape off %}
+    {{html}}
+{% endautoescape %}
+</table>
+</div>
+
+
+
+</body>
+</html>
