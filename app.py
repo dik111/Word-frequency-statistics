@@ -9,7 +9,7 @@ import pymysql
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:asd2828@127.0.0.1/edm'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:root@127.0.0.1/edm'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.config.update(dict(
     SECRET_KEY="powerful secretkey",
